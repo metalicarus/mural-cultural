@@ -25,6 +25,7 @@ public class Artist extends BaseEntity {
 			joinColumns = @JoinColumn(name= "artist_id"))
 	@AttributeOverrides({
 		@AttributeOverride(name= "link", column= @Column(name= "social_network_link")),
+		@AttributeOverride(name= "name", column= @Column(name= "social_network_link_name"))
 	})
 	private List<SocialNetwork> links;
 	

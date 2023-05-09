@@ -40,6 +40,7 @@ public class Event extends BaseEntity {
 			joinColumns = @JoinColumn(name= "event_id"))
 	@AttributeOverrides({
 		@AttributeOverride(name= "link", column= @Column(name= "social_network_link")),
+		@AttributeOverride(name= "name", column= @Column(name= "social_network_link_name"))
 	})
 	private List<SocialNetwork> links;
 	
@@ -162,4 +163,21 @@ public class Event extends BaseEntity {
                 ", description='" + getDescription() + '\'' +
                 '}';
     }
+
+	public List<SocialNetwork> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<SocialNetwork> links) {
+		this.links = links;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+ 
 }
