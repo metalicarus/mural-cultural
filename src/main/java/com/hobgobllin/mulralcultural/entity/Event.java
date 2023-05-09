@@ -6,7 +6,11 @@ import java.util.List;
 
 import com.hobgobllin.mulralcultural.type.EventCategory;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,6 +34,22 @@ public class Event extends BaseEntity {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "concert_hall_id"))
     private List<ConcertHall> halls = new ArrayList<>();
+    
+    @ElementCollection
+	@CollectionTable(name= "event_social_networks", 
+			joinColumns = @JoinColumn(name= "event_id"))
+	@AttributeOverrides({
+		@AttributeOverride(name= "link", column= @Column(name= "social_network_link")),
+	})
+	private List<SocialNetwork> links;
+	
+	@ElementCollection
+	@CollectionTable(name= "event_images", 
+			joinColumns = @JoinColumn(name= "artist_id"))
+	@AttributeOverrides({
+		@AttributeOverride(name= "image", column= @Column(name= "event_image")),
+	})
+	private List<Image> images;
 
     
     @Column(nullable = false)
@@ -45,8 +65,6 @@ public class Event extends BaseEntity {
     public Event() {
     }
  
-    
-	
     public Event(Long id, List<Artist> artists, List<ConcertHall> halls, String name, LocalDateTime startDate,
 			LocalDateTime endDate, EventCategory category, String description) {
 		super();
