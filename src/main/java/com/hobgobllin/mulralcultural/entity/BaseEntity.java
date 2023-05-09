@@ -7,49 +7,51 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String name;
-    
-    private String description;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+	private String name;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+	private String description;
 
-    // getters and setters
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	// getters and setters
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
 	public String getDescription() {
 		return description;
@@ -65,5 +67,15 @@ public abstract class BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = LocalDateTime.now();
 	}
 }
