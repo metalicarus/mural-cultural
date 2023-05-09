@@ -10,9 +10,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -20,11 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "events")
-public class Event {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Event extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "event_artists",
@@ -38,8 +31,6 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "concert_hall_id"))
     private List<ConcertHall> halls = new ArrayList<>();
 
-    @Column(nullable = false)
-    private String name;
     
     @Column(nullable = false)
     private LocalDateTime startDate;
@@ -50,10 +41,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EventCategory category;
-
-    @Column(nullable = false)
-    private String description;
-
+ 
     public Event() {
     }
  
@@ -62,29 +50,15 @@ public class Event {
     public Event(Long id, List<Artist> artists, List<ConcertHall> halls, String name, LocalDateTime startDate,
 			LocalDateTime endDate, EventCategory category, String description) {
 		super();
-		this.id = id;
+		setId(id);
 		this.artists = artists;
 		this.halls = halls;
-		this.name = name;
+		setName(name);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.category = category;
-		this.description = description;
+		setDescription(description);
 	}
-
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
 
 	public List<Artist> getArtists() {
 		return artists;
@@ -107,19 +81,6 @@ public class Event {
 	public void setHalls(List<ConcertHall> halls) {
 		this.halls = halls;
 	}
-
-
-
-	public String getName() {
-		return name;
-	}
-
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 
 
 	public LocalDateTime getStartDate() {
@@ -156,20 +117,6 @@ public class Event {
 		this.category = category;
 	}
 
-
-
-	public String getDescription() {
-		return description;
-	}
-
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-
 	public void addHall(ConcertHall hall) {
     	halls.add(hall);
     }
@@ -191,10 +138,10 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
                 ", category=" + category +
-                ", description='" + description + '\'' +
+                ", description='" + getDescription() + '\'' +
                 '}';
     }
 }
