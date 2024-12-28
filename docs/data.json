@@ -1,0 +1,21 @@
+{
+    "categories": [
+      { "id": 1, "name": "Música" },
+      { "id": 2, "name": "Cultura" }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "name": "Festival de Música",
+        "description": "Um festival incrível.",
+        "date": "2024-12-31",
+        "location": {
+          "address": "Praça Central",
+          "latitude": -23.55052,
+          "longitude": -46.633308
+        },
+        "categories": [1, 2]
+      }
+    ]
+  }
+  
