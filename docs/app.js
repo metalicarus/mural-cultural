@@ -6,15 +6,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       const eventsContainer = document.getElementById('events');
       data.events.forEach(event => {
         const eventElement = document.createElement('div');
-        eventElement.classList.add('event');
+        eventElement.classList.add('col-md-6', 'mb-4');
         eventElement.innerHTML = `
-          <h2>${event.name}</h2>
-          <p>${event.description}</p>
-          <p><strong>Data:</strong> ${new Date(event.date).toLocaleString()}</p>
-          <p><strong>Local:</strong> ${event.location.address}</p>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-success">${event.name}</h5>
+              <p class="card-text">${event.description}</p>
+              <p><strong>Data:</strong> ${new Date(event.date).toLocaleString()}</p>
+              <p><strong>Local:</strong> ${event.location.address}</p>
+            </div>
+          </div>
         `;
         eventsContainer.appendChild(eventElement);
-      });
+      });      
     } catch (error) {
       console.error('Erro ao carregar os eventos:', error);
     }
